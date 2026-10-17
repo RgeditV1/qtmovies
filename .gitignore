@@ -1,0 +1,7 @@
+build/
+.cache
+bin/
+*.so
+*.exe
+*.bat
+.vscode
