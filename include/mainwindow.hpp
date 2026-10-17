@@ -13,6 +13,15 @@ class MainWindow : public QMainWindow
 
   public:
     MainWindow(QMainWindow *parent = nullptr) : QMainWindow(parent) { build_ui(); }
+    ~MainWindow()
+    {
+        if (main_frame)
+            delete main_frame;
+        if (toolbar)
+            delete toolbar;
+        if (search_bar)
+            delete search_bar;
+    }
 
   private:
     /* Private Methods Area */
