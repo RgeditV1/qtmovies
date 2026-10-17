@@ -29,7 +29,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "include/*.hpp")
 
-add_executable(qtmovies ${SOURCES} ${HEADERS})
+add_executable(qtmovies ${SOURCES} ${HEADERS} res.qrc)
 
 target_include_directories(qtmovies PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
