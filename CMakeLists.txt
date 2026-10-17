@@ -26,8 +26,10 @@ FetchContent_MakeAvailable(webview)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 
-add_executable(qtmovies
-              src/main.cpp)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "include/*.hpp")
+
+add_executable(qtmovies ${SOURCES} ${HEADERS})
 
 target_include_directories(qtmovies PRIVATE ${CMAKE_SOURCE_DIR}/include)
 

@@ -1,4 +1,13 @@
 #pragma once
-#include <iostream>
+#include <QMainWindow>
 
-inline void hello() { std::cout << "Hello World!"; }
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+  public:
+    MainWindow(QMainWindow *parent = nullptr) : QMainWindow(parent) { build_ui(); }
+
+  private:
+    void build_ui();
+};
