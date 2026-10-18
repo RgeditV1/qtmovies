@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow
 
   public:
     MainWindow(QMainWindow *parent = nullptr) : QMainWindow(parent) { build_ui(); }
-    ~MainWindow()
+    ~MainWindow() override
     {
         if (main_frame)
             delete main_frame;
@@ -30,7 +30,6 @@ class MainWindow : public QMainWindow
     void build_toolbar();
     void add_search_bar(QToolBar *parent);
 
-  private:
     /* Pointers Area */
     QFrame *main_frame = nullptr;
     QToolBar *toolbar = nullptr;

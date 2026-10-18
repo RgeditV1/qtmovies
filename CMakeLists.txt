@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 project(qtmovies VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -10,6 +12,33 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/lib")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON) # resource file e.g .qrc
+
+find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
+
+if(CLANG_TIDY_EXE)
+  # Generate a lightweight wrapper script to filter out GCC-specific flags
+  # that Clang/clang-tidy does not recognize (e.g., -mno-direct-extern-access)
+  set(CLANG_TIDY_WRAPPER "${CMAKE_BINARY_DIR}/clang-tidy-wrapper.py")
+  file(WRITE "${CLANG_TIDY_WRAPPER}"
+    "#!/usr/bin/env python3\n"
+    "import sys\n"
+    "import subprocess\n"
+    "\n"
+    "args = sys.argv[1:]\n"
+    "filtered_args = []\n"
+    "for arg in args:\n"
+    "    if arg == '-mno-direct-extern-access' or arg.startswith('-mno-direct-extern-access='):\n"
+    "        continue\n"
+    "    filtered_args.append(arg)\n"
+    "\n"
+    "cmd = ['${CLANG_TIDY_EXE}'] + filtered_args\n"
+    "sys.exit(subprocess.run(cmd).returncode)\n"
+  )
+  execute_process(COMMAND chmod +x "${CLANG_TIDY_WRAPPER}")
+
+  set(CMAKE_CXX_CLANG_TIDY
+    "python3;${CLANG_TIDY_WRAPPER};-extra-arg=-std=c++20;-extra-arg=-Wno-unknown-warning-option;-extra-arg=-Wno-ignored-optimization-argument")
+endif()
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 
