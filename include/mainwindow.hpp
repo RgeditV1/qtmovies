@@ -1,11 +1,18 @@
 #pragma once
-// #include <QLabel>
-#include <QFrame>
+
+/* page.hpp has
+ * include <QFrame>
+ * include <QMainWindow>
+ * include <QObject>
+ * include <QStatusBar>
+ * include <QTcpSocket>
+ * include <QWidget>
+ */
+#include "page.hpp"
+
 #include <QIcon>
 #include <QLineEdit>
-#include <QMainWindow>
 #include <QToolBar>
-// #include <memory>
 
 class MainWindow : public QMainWindow
 {

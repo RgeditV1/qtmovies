@@ -19,15 +19,15 @@ void MainWindow::build_toolbar()
     toolbar->setMovable(false);
 
     // this is the solution that i found to centre the Search Bar
-    QWidget *spacerLeft = new QWidget(this);
-    spacerLeft->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    toolbar->addWidget(spacerLeft);
+    auto *spacer_left = new QWidget(this);
+    spacer_left->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    toolbar->addWidget(spacer_left);
 
     add_search_bar(toolbar);
 
-    QWidget *spacerRight = new QWidget(this);
-    spacerRight->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    toolbar->addWidget(spacerRight);
+    auto *spacer_right = new QWidget(this);
+    spacer_right->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    toolbar->addWidget(spacer_right);
 
     this->addToolBar(toolbar);
 }

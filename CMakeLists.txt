@@ -53,7 +53,7 @@ FetchContent_Declare(
     GIT_TAG 0.12.0)
 FetchContent_MakeAvailable(webview)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "include/*.hpp")
@@ -66,4 +66,5 @@ target_link_libraries(qtmovies PRIVATE
                       Qt6::Core
                       Qt6::Gui
                       Qt6::Widgets
+                      Qt6::Network
                       webview::core)
