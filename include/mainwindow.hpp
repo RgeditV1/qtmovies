@@ -12,6 +12,7 @@
 
 #include <QIcon>
 #include <QLineEdit>
+#include <QMainWindow>
 #include <QToolBar>
 
 class MainWindow : public QMainWindow
@@ -20,20 +21,21 @@ class MainWindow : public QMainWindow
 
   public:
     MainWindow(QMainWindow *parent = nullptr) : QMainWindow(parent) { build_ui(); }
-    ~MainWindow() override
-    {
-        if (main_frame)
-            delete main_frame;
-        if (toolbar)
-            delete toolbar;
-        if (search_bar)
-            delete search_bar;
-    }
+    ~MainWindow() override;
+
+  protected:
+    /*!
+     * \brief checck Connection.
+     * \param[in] parent windows itself.
+     * \param[in] callback return true or false if you need a boolean func.
+     */
+    template <typename Callback> void check_conection(QMainWindow *parent, Callback &&callback);
 
   private:
     /* Private Methods Area */
     void build_ui();
     void build_main_frame(QMainWindow *parent);
+    void build_status_bar();
     void build_toolbar();
     void add_search_bar(QToolBar *parent);
 
@@ -41,4 +43,6 @@ class MainWindow : public QMainWindow
     QFrame *main_frame = nullptr;
     QToolBar *toolbar = nullptr;
     QLineEdit *search_bar = nullptr;
+    QStatusBar *status_bar = nullptr;
+    Movie::Index *index = nullptr;
 };
