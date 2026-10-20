@@ -42,6 +42,9 @@ endif()
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+set(JSON_Install OFF CACHE INTERNAL "")
+
 set(WEBVIEW_BUILD_STATIC_LIBRARY ON CACHE BOOL "" FORCE)
 set(WEBVIEW_BUILD_SHARED_LIBRARY OFF CACHE BOOL "" FORCE)
 
@@ -55,6 +58,8 @@ FetchContent_MakeAvailable(webview)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network)
 
+add_subdirectory(extern/nlohmann)
+
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "include/*.hpp")
 
@@ -67,4 +72,5 @@ target_link_libraries(qtmovies PRIVATE
                       Qt6::Gui
                       Qt6::Widgets
                       Qt6::Network
-                      webview::core)
+                      webview::core
+                      nlohmann_json::nlohmann_json)
